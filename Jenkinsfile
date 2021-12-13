@@ -16,7 +16,7 @@ pipeline {
         stage('Git Checkout') {
             steps {
                 
-                git credentialsId: 'my-bitbucket-creds', url: 'https://dineshtoon@bitbucket.org/dineshtoon/java_maven.git'
+                git credentialsId: 'my-github-credentials', url: 'https://github.com/Christyfemi/java-pipeline.git
             }
 
         }
