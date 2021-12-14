@@ -13,45 +13,18 @@ pipeline {
                 deleteDir()
             }
         }
+        
         stage('Git Checkout') {
-            steps {
-                
+            steps {                
                 git credentialsId: 'my-github-credentials', url: 'https://github.com/Christyfemi/java-pipeline.git'
             }
 
         }
-        stage('maven and jacoco') {
-            steps {
+        
+        stage('Build') {
+            steps{
                 sh 'mvn clean install'
-                //sh 'mvn sonar:sonar'
             }
-
-        }
-        stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'Sonar'
-    }
-    steps {
-        withSonarQubeEnv('SonarServer') {
-            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=java_maven -Dsonar.sources=. -Dsonar.java.binaries=target/classes/com/mycompany/app/ "
-            //sh "${scannerHome}/bin/sonar-scanner"
-          echo 'some'
-        }
-        }
-    }
-    stage("Quality gate") {
-            steps {
-                waitForQualityGate abortPipeline: true
-               echo 'some'
-            }
-        }
-    
-        stage('Deploy') {
-            steps {
-                //sh 'mvn test'
-                echo 'deploying to nexus of target server'
-            }
-
         }
     }
 }
