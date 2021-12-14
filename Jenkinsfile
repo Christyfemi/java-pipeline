@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // auto installed maven
-        maven "Maven"
+        maven "Maven3.8.4"
     }
 
     stages {
