@@ -26,6 +26,20 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
+        
+        stage('Sonar stage')
+        {
+            environment{
+            scannerScanner = tool 'Sonar'
+            }
+            steps{
+                withSonarQubeEnv('SonarServer')
+                {
+                     sh "${scannerScanner}/bin/sonar-scanner -Dsonar.projectKey=java_maven -Dsonar.sources=. -Dsonar.java.binaries=target/classes/com/mycompany/app/ "
+                }
+            }
+            
+        }
     }
 }
 
